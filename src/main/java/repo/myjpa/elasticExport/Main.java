@@ -1,4 +1,4 @@
-import repo.myjpa.elasticExport.IndexExporter;
+package repo.myjpa.elasticExport;
 
 import java.io.IOException;
 
