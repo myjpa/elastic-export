@@ -2,6 +2,7 @@ group 'repo.myjpa.elasticExport'
 version '1.0'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
@@ -11,21 +12,36 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    // https://mvnrepository.com/artifact/org.apache.lucene/lucene-core
-    compile group: 'org.apache.lucene', name: 'lucene-core', version: '6.6.0'
     // https://mvnrepository.com/artifact/org.apache.lucene/lucene-backward-codecs
     compile group: 'org.apache.lucene', name: 'lucene-backward-codecs', version: '6.6.0'
+    // https://mvnrepository.com/artifact/org.apache.lucene/lucene-core
+    compile group: 'org.apache.lucene', name: 'lucene-core', version: '6.6.0'
+
 
 
 }
-
+mainClassName = "repo.myjpa.elasticExport.Main"
 jar {
+    /*
     from {
         (configurations.compile).collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+    */
     manifest {
         attributes("Main-Class": "repo.myjpa.elasticExport.Main")
     }
 }
+
+run {
+    args = ["Z:\\tmp\\clue\\clue\\example2"]
+}
+/*
+task copyToLib(type: Copy) {
+    into "$buildDir/libs"
+    from configurations.runtime
+}
+
+build.dependsOn(copyToLib)
+*/
