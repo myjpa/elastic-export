@@ -12,10 +12,15 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    // https://mvnrepository.com/artifact/org.apache.lucene/lucene-backward-codecs
-    compile group: 'org.apache.lucene', name: 'lucene-backward-codecs', version: '6.6.0'
-    // https://mvnrepository.com/artifact/org.apache.lucene/lucene-core
+
+    // lucene lib
     compile group: 'org.apache.lucene', name: 'lucene-core', version: '6.6.0'
+    compile group: 'org.apache.lucene', name: 'lucene-backward-codecs', version: '6.6.0'
+
+    // Jackson to parse binary SMILE data stream, which is used by ES state file
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.9'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-smile', version: '2.8.9'
 
 
 
