@@ -22,19 +22,12 @@
  *  SOFTWARE.
  */
 
-package repo.myjpa.elasticExport.util;
-
-import java.io.IOException;
-import java.io.OutputStream;
+package repo.myjpa.elasticExport.reader;
 
 /**
- * null output stream
- * borrowed from here: https://stackoverflow.com/a/692580
+ * This scans and reads all the indices within an elasticsearch repo,
+ * which is the local storage of a particular elasticsearch node
  * Created by haoliu on 7/7/2017.
  */
-public class NullOutputStream extends OutputStream {
-    public static final NullOutputStream INSTANCE = new NullOutputStream();
-    @Override
-    public void write(int b) throws IOException {
-    }
+public class EsRepoReader {
 }

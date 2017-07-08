@@ -22,6 +22,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.9'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-smile', version: '2.8.9'
 
+    // command-line parser
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+
+
 
 
 }

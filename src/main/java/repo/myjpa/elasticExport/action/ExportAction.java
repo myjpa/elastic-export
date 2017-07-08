@@ -22,19 +22,36 @@
  *  SOFTWARE.
  */
 
-package repo.myjpa.elasticExport.util;
+package repo.myjpa.elasticExport.action;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import repo.myjpa.elasticExport.reader.IndexReader;
+import repo.myjpa.elasticExport.reader.ShardReader;
+import repo.myjpa.elasticExport.util.NullOutputStream;
+import repo.myjpa.elasticExport.util.OnProgress;
+
+import java.io.*;
+import java.util.zip.GZIPOutputStream;
 
 /**
- * null output stream
- * borrowed from here: https://stackoverflow.com/a/692580
+ * export an ES folder
  * Created by haoliu on 7/7/2017.
  */
-public class NullOutputStream extends OutputStream {
-    public static final NullOutputStream INSTANCE = new NullOutputStream();
+public class ExportAction extends Action {
     @Override
-    public void write(int b) throws IOException {
+    public void setup(ActionDescriptor ad) throws IllegalArgumentException {
+        super.setup(ad);
+        validate(!ad.getSrcFolder().isEmpty(), "require source folder");
+        validate(!ad.getDestFolder().isEmpty(), "require dest folder");
     }
+
+    @Override
+    public void run(OnProgress onProgress) throws Exception {
+        IndexReader ir = new IndexReader();
+        ir.open(ad.getSrcFolder());
+        for (ShardReader sr : ir.getShards()) {
+            OutputStream out = ad.getOutputStream(sr.getIndexName()+"."+sr.getShardId());
+            sr.getExporter().export(out, onProgress);
+        }
+    }
+
 }
