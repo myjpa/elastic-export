@@ -37,7 +37,7 @@ public class ActionDescriptor {
     private String action;
     private String srcFolder;
     private String destFolder;
-    private String onlyPrimary;
+    private Boolean onlyPrimary;
 
     public String getAction() {
         return action;
@@ -92,11 +92,11 @@ public class ActionDescriptor {
 
     }
 
-    public String getOnlyPrimary() {
+    public Boolean getOnlyPrimary() {
         return onlyPrimary;
     }
 
-    public void setOnlyPrimary(String onlyPrimary) {
+    public void setOnlyPrimary(Boolean onlyPrimary) {
         this.onlyPrimary = onlyPrimary;
     }
 }

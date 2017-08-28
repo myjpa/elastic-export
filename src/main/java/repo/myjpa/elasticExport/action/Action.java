@@ -45,13 +45,12 @@ public abstract class Action {
             return action;
 
         } catch (ClassNotFoundException e) {
+            // unsupported action
             return null;
-        } catch (IllegalAccessException e) {
-            return null;
-        } catch (InstantiationException e) {
+        } catch (Exception e) {
+            // failed to setup action
             return null;
         }
-
     }
 
     protected ActionDescriptor ad;

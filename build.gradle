@@ -41,11 +41,11 @@ jar {
     manifest {
         attributes("Main-Class": "repo.myjpa.elasticExport.Main")
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
-run {
-    args = ["Z:\\tmp\\clue\\clue\\example2"]
-}
 /*
 task copyToLib(type: Copy) {
     into "$buildDir/libs"

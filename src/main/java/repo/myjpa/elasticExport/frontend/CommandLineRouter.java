@@ -47,11 +47,11 @@ public class CommandLineRouter {
         options.addOption("a", "action", true,
                 "Action, the only choice is export(default) for now");
         options.addOption("s", "src", true,
-                "Source directory: ElasticSearch index data folder. eg. data.repo/some_cluster/nodes/0/indices/index-uuid");
+                "Source directory: ElasticSearch index data folder. eg. data.repo/some_cluster/nodes/0/indices/index-uuid, default to current directory");
         options.addOption("d", "dest", true,
                 "Destination directory to export to, with file name as ${index}.${shardId}.json.gz; You can use STDOUT (this is default) to output to standard output or NULL to discard the output");
-        options.addOption("p", "filter-primary", true,
-                "true|false|both: only export Primary shard(default) or not, or both");
+        options.addOption("p", "only-primary", false,
+                "only export primary shard");
     }
 
     private CommandLineRouter(CommandLine cmdline) {
@@ -81,10 +81,10 @@ public class CommandLineRouter {
      */
     private void route() {
         ActionDescriptor ad = new ActionDescriptor();
-        ad.setAction(cmdline.getOptionValue("a", "Export"));
-        ad.setSrcFolder(cmdline.getOptionValue("s"));
+        ad.setAction(cmdline.getOptionValue("a", "export"));
+        ad.setSrcFolder(cmdline.getOptionValue("s","."));
         ad.setDestFolder(cmdline.getOptionValue("d","STDOUT"));
-        ad.setOnlyPrimary(cmdline.getOptionValue("p", "true"));
+        ad.setOnlyPrimary(Boolean.parseBoolean(cmdline.getOptionValue("p", "true")));
 
         Action action = Action.create(ad);
         if (action == null) {

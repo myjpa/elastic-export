@@ -49,7 +49,11 @@ public class ExportAction extends Action {
         IndexReader ir = new IndexReader();
         ir.open(ad.getSrcFolder());
         for (ShardReader sr : ir.getShards()) {
-            OutputStream out = ad.getOutputStream(sr.getIndexName()+"."+sr.getShardId());
+            // only export primary shard if ad.getOnlyPrimary == true
+            if (ad.getOnlyPrimary() && !sr.isPrimary()) {
+                continue;
+            }
+            OutputStream out = ad.getOutputStream(sr.getIndexName() + "." + sr.getShardId());
             sr.getExporter().export(out, onProgress);
         }
     }
