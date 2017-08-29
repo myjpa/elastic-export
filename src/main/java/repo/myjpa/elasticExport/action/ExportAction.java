@@ -55,6 +55,7 @@ public class ExportAction extends Action {
             }
             OutputStream out = ad.getOutputStream(sr.getIndexName() + "." + sr.getShardId());
             sr.getExporter().export(out, onProgress);
+            out.close();
         }
     }
 

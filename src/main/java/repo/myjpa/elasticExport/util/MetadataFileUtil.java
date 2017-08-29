@@ -72,7 +72,7 @@ public class MetadataFileUtil {
      */
     public static JsonNode readMetadataFileInFolder(final String baseDir) throws IOException {
         File[] files = new File(baseDir).listFiles();
-        if(files.length == 0) {
+        if(files == null || files.length == 0) {
             return null;
         }
         // TODO: allow user to provide a glob filter for file names

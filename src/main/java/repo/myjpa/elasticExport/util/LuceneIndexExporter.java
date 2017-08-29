@@ -84,6 +84,7 @@ public class LuceneIndexExporter {
             //https://lucene.apache.org/core/4_0_0/MIGRATE.html
             Bits liveDocs = MultiFields.getLiveDocs(reader);
             int maxDoc = reader.maxDoc();
+            System.out.println("doc count:"+maxDoc);
 
             for (int i = 0; i < maxDoc; i++) {
                 if (onProgress != null && i % 10000 == 0) {
@@ -100,6 +101,7 @@ public class LuceneIndexExporter {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace(System.err);
 
         } finally {
             try {

@@ -47,7 +47,7 @@ public class CommandLineRouter {
         options.addOption("a", "action", true,
                 "Action, the only choice is export(default) for now");
         options.addOption("s", "src", true,
-                "Source directory: ElasticSearch index data folder. eg. data.repo/some_cluster/nodes/0/indices/index-uuid, default to current directory");
+                "Source directory: ElasticSearch index data folder. eg. data.repo/some_cluster/nodes/0/indices/index-uuid");
         options.addOption("d", "dest", true,
                 "Destination directory to export to, with file name as ${index}.${shardId}.json.gz; You can use STDOUT (this is default) to output to standard output or NULL to discard the output");
         options.addOption("p", "only-primary", false,
@@ -82,7 +82,7 @@ public class CommandLineRouter {
     private void route() {
         ActionDescriptor ad = new ActionDescriptor();
         ad.setAction(cmdline.getOptionValue("a", "export"));
-        ad.setSrcFolder(cmdline.getOptionValue("s","."));
+        ad.setSrcFolder(cmdline.getOptionValue("s"));
         ad.setDestFolder(cmdline.getOptionValue("d","STDOUT"));
         ad.setOnlyPrimary(Boolean.parseBoolean(cmdline.getOptionValue("p", "true")));
 
@@ -97,7 +97,9 @@ public class CommandLineRouter {
                     return true;
                 });
             } catch (Exception e) {
-                System.err.println(e.toString());
+                System.err.println("ERROR: Cannot read ES index from directory:"+ad.getSrcFolder());
+                e.printStackTrace(System.err);
+
 
             }
         }
